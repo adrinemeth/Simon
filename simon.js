@@ -47,7 +47,24 @@ var computerView = {
     },
     render: function () {
         var moves = model.moves;
-       //will handle flashing of tiles
+        console.log("moves: " + moves);
+        var current;
+        var arrlength = moves.length;
+        for (var i = 0; i < arrlength; i++) {
+            this.delayIteration(i, moves, current, this.lightUp);
+        }
+    },
+    delayIteration: function (i, arr, currentDiv, blinker) {
+        setTimeout(function () {
+            currentDiv = document.getElementById(arr[i]);
+            blinker(currentDiv);
+        }, 1000 * i);
+    },
+    lightUp: function (item) {
+        $(item).addClass("active");
+        setTimeout(function () {
+            $(item).removeClass("active");
+        }, 500);
     }
 };
 scoreView.init();
